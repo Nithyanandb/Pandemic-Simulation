@@ -78,10 +78,7 @@ function App() {
                     <h3>Active Cases by Country</h3>
                     <Bar data={getBarData(countryData)} options={{ responsive: true }} />
                 </div>
-                <div className="grid-item3">
-                    <h3>Active vs Total Cases</h3>
-                    <Doughnut data={getDoughnutData(countryData)} options={{ responsive: true }} />
-                </div>
+             
             </div>
             <div className='in'>
             {renderInsights()}
