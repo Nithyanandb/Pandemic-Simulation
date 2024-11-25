@@ -5,20 +5,13 @@ FROM node:16 AS build
 WORKDIR /app
 
 # Install dependencies
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install
-
 # Copy the rest of the application code
-COPY . ./
+COPY . .
 
-# Build the React app
-RUN npm run build
-
-# Set up the nginx image for serving the static files
-FROM nginx:alpine
-
-# Copy the build files from previous stage
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose the port
+# Expose the port that the application will run on
 EXPOSE 3000
+
+# Run the command to start the application when the container launches
+CMD ["npm", "start"]
