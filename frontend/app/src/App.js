@@ -2,12 +2,22 @@ import React, { useEffect, useState } from 'react';
 import './App.css'; // Custom CSS for styling
 import CountUp from 'react-countup';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
-
+import { Chart as ChartJS, ArcElement, LineElement, BarElement, Title, Tooltip,
+    Legend, CategoryScale, LinearScale, PointElement} from 
+    'chart.js';
 import { getTotalCasesByCountry, calculateTotalCases, getDoughnutData, getBarData } from './chartData';
 
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,  
+  Title,
+  Tooltip,
+  Legend
+);
 
 function App() {
     const [data, setData] = useState([]);
@@ -54,9 +64,9 @@ function App() {
         const insights = calculateTotalCases(countryData);
         return (
             <>
-                <div>Total Confirmed Cases: <CountUp end={insights.totalConfirmed} duration={0.2} separator="," /></div>
-                <div style={{ color: 'red' }}>Total Deaths: <CountUp end={insights.totalDeaths} duration={10} separator="," /></div>
-                <div>Total Recovered: <CountUp end={insights.totalRecovered} duration={4} separator="," /></div>
+                <div>Total Confirmed Cases: <CountUp end={insights.totalConfirmed} duration={10} separator="," /></div>
+                <div style={{ color: 'red' }}>Total Deaths: <CountUp end={insights.totalDeaths} duration={0.02} separator="," /></div>
+                <div>Total Recovered: <CountUp end={insights.totalRecovered} duration={2} separator="," /></div>
                 <div>Total Active Cases: <CountUp end={insights.totalActive} duration={0.1} separator="," /></div>
             </>
         );
@@ -69,7 +79,7 @@ function App() {
 
 <h1> Pandemic Simulation</h1>
             <div className="grid-container">
-                <div className="grid-item`1">
+                <div className="grid-item1">
                     <h3>Total Cases by Country</h3>
                     <Line data={getTotalCasesByCountry(countryData)} options={{ responsive: true, plugins: { title: { display: true, text: 'Total Cases by Country' } } }} />
                 </div>
@@ -78,7 +88,10 @@ function App() {
                     <h3>Active Cases by Country</h3>
                     <Bar data={getBarData(countryData)} options={{ responsive: true }} />
                 </div>
-             
+                <div className="grid-item3">
+                    <h3>Active vs Total Cases</h3>
+                    <Doughnut data={getDoughnutData(countryData)} options={{ responsive: true }} />
+                </div>
             </div>
             <div className='in'>
             {renderInsights()}

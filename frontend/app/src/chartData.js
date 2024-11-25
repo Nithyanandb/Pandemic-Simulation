@@ -30,6 +30,20 @@ export const calculateTotalCases = (countryData) => {
     return { totalConfirmed, totalDeaths, totalRecovered, totalActive };
 };
 
+export const getDoughnutData = (countryData) => {
+    const { totalConfirmed, totalDeaths, totalRecovered, totalActive } = calculateTotalCases(countryData);
+    const activePercentage = ((totalActive / totalConfirmed) * 100).toFixed(2);
+
+    return {
+        labels: ['Active Cases', 'Other Cases'],
+        datasets: [
+            {
+                data: [activePercentage, 100 - activePercentage],
+                backgroundColor: ['rgba(153, 102, 255, 0.6)', 'rgba(201, 203, 207, 0.6)'],
+            },
+        ],
+    };
+};
 
 export const getBarData = (countryData) => {
     const countries = countryData.map((item) => item.countryRegion);
