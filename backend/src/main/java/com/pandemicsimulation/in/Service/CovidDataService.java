@@ -25,10 +25,11 @@ import java.util.concurrent.CompletableFuture;
         public CompletableFuture<List<CovidData>> fetchAllCovidData() {
             CompletableFuture<List<CovidData>> future = new CompletableFuture<>();
 
-            databaseReference.child("json").addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child("coviddata/js").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     List<CovidData> covidDataList = new ArrayList<>();
+                    // Iterate over the children in the 'js' node
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         CovidData covidData = snapshot.getValue(CovidData.class);
                         if (covidData != null) {
@@ -40,11 +41,11 @@ import java.util.concurrent.CompletableFuture;
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Handle possible errors
                     future.completeExceptionally(databaseError.toException());
                 }
             });
 
             return future;
         }
+
     }

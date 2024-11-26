@@ -120,7 +120,6 @@ function App() {
                                 <Typography>Total Active Cases: <CountUp end={insights.totalActive} duration={0.2} separator="," /></Typography>
                             </>
                         )}
-
                     </Grid>
 
                     {insights && (
