@@ -1,0 +1,11 @@
+[build]
+frontend = "frontend/"
+backend = "backend/"
+
+[frontend]
+build = "npm install && npm run build"
+output = "frontend/build"
+
+[backend]
+build = "mvn clean install"  # Or for Gradle: "./gradlew build"
+output = "backend/target"    # You can change this depending on your backend build output directory
