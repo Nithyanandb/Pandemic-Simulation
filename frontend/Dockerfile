@@ -1,28 +1,23 @@
-# Use Node.js as the base image for the build stage
-FROM node:18 AS build
+# Use an official Node.js 18 image as the base
+FROM node:18
 
-# Set the working directory
+# Set the working directory to /app
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json package-lock.json ./
+# Copy the package*.json files to the working directory
+COPY package*.json ./
+
+# Install the dependencies
 RUN npm install
 
-# Copy the source code
-COPY src ./src
-COPY public ./public
+# Copy the application code to the working directory
+COPY . .
 
-# Build the React app for production
+# Build the React application
 RUN npm run build
 
-# Use a lightweight web server for serving static files
-FROM nginx:alpine
-
-# Copy the build output to the Nginx container
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose the port Nginx is running on
+# Expose the port
 EXPOSE 3000
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Run the command to start the React application
+CMD ["npm", "start"]

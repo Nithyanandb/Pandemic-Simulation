@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "2000:2000"
+    environment:
+      - FIREBASE_CREDENTIALS_FILE=${FIREBASE_CREDENTIALS_FILE}
+      - FIREBASE_DATABASE_URL=${FIREBASE_DATABASE_URL}
+    depends_on:
+      - frontend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
