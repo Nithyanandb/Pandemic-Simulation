@@ -1,11 +1,25 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-alpine
+# Use a Maven base image
+FROM maven:3.9.0-eclipse-temurin-17 AS builder
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the JAR file from the target folder to the container
-COPY target/CovidData-0.0.1-SNAPSHOT.jar /app/app.jar
+# Cache Maven dependencies
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Run the JAR file when the container starts
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Copy the source code
+COPY src ./src
+
+# Build the project
+RUN mvn clean package -DskipTests
+
+# Final image with only the build artifacts (you can use an openjdk image for the runtime)
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy the build artifacts
+COPY --from=builder /app/target/*.jar /app/app.jar
+
+CMD ["java", "-jar", "/app/app.jar"]
