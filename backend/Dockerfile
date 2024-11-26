@@ -1,14 +1,11 @@
-# Use OpenJDK 21 slim image
-FROM openjdk:21-jdk-slim
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:17-jdk-alpine
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the compiled Spring Boot JAR file
-COPY target/CovidData-0.0.1-SNAPSHOT.jar app.jar
+# Copy the JAR file from the target folder to the container
+COPY target/CovidData-0.0.1-SNAPSHOT.jar /app/app.jar
 
-# Expose the port the app will run on
-EXPOSE 2000
-
-# Run the Spring Boot application
+# Run the JAR file when the container starts
 ENTRYPOINT ["java", "-jar", "app.jar"]
