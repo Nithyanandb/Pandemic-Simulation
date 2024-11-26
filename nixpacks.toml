@@ -1,11 +1,12 @@
+# nixpacks.toml
+
 [build]
-frontend = "frontend/"
-backend = "backend/"
+builder = "nodejs"
 
 [frontend]
-build = "npm install && npm run build"
-output = "frontend/build"
+path = "frontend"
+builder = "nodejs"
 
 [backend]
-build = "mvn clean install"  
-output = "backend/target"
+path = "backend"
+builder = "java"  # or use another backend language depending on your setup
