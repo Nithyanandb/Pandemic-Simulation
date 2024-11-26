@@ -26,7 +26,7 @@ public class FirebaseConfig {
 // 3. Initialize Firebase with credentials and database URL
 // If initialization fails, print error and throw exception
 
-    private static final String FIREBASE_CREDENTIALS_PATH = "src/main/java/com/pandemicsimulation/in/Config/coviddata-5088f-firebase-adminsdk-8xooi-f00371435d.json";
+    private static final String FIREBASE_CREDENTIALS_PATH = "src/main/java/com/pandemicsimulation/in/Config/coviddata-5088f-firebase-adminsdk-8xooi-6649dbfd1c.json";
 
 
 
