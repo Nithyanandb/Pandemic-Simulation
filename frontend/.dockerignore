@@ -1,15 +1,4 @@
-# Ignore .git directory
+node_modules/
+build/
 .git/
-
-# Ignore node_modules from the frontend
-frontend/node_modules/
-
-# Ignore target directory from the backend
-backend/target/
-
-# Ignore IDE files
 .idea/
-
-# Ignore build files
-*.log
-*.md
