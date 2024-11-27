@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/api/simulation")
+@RequestMapping("/")
 @CrossOrigin(origins = "*")
 
 public class CovidDataController {
@@ -22,12 +22,8 @@ public class CovidDataController {
     public CovidDataController(com.pandemicsimulation.in.Service.CovidDataService covidDataService) {
         this.covidDataService = covidDataService;
     }
-    @GetMapping("/health")
-    public ResponseEntity<String> healthCheck() {
-        return ResponseEntity.ok("Application is up and running");
-    }
 
-    @GetMapping("/data")
+    @GetMapping("/")
     public CompletableFuture<List<CovidData>> getSimulationData() {
         return covidDataService.fetchAllCovidData()
                 .exceptionally(ex -> {
